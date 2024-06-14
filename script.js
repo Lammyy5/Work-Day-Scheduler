@@ -2,30 +2,39 @@ var descriptionEl = $('.description');
 var saveBtnEl = $('.saveBtn');
 var currentDayEl = $('#currentDay');
 var rightNow = dayjs().format('MMM DD, YYYY [at] hh:mm:ss a');
-
+let hour = dayjs().format('hh');
+let hourIds = [];
+$('.time-block').each(function() {
+    hourIds.push(this.id.match(/(\d+)/).shift());
+});
+console.log(hourIds);
+console.log(hour);
 // Wrap all code that interacts with the DOM in a call to jQuery to ensure that
 // the code isn't run until the browser has finished rendering all the elements
 // in the html.
 let timeeBlock;
 $(function () {
 	saveBtnEl.on('click', function (event) {
+		let timeBlock = $(this).closest('.time-block');
+		let descriptionEl = timeBlock.find('.description');
+		let descriptionVal = descriptionEl.val();
+
+		let hourId = timeBlock.attr('id');
 		let schedule = {
-			time: [],
-			description: [],
+			time: hourId,
+			description: descriptionVal,
 		};
 
-		var descriptionVal = event.target(descriptionEl);
-		console.log(descriptionVal)
-		// schedule.description.push(descrVal);
+		// Retrieve existing schedules from local storage
 		
-	
-		let timeBlock = $(this).closest('.time-block');
-		let hourId = timeBlock.attr('id');
-		schedule.time.push(hourId);
-		localStorage.setItem('descrption', schedule.description);
-		localStorage.setItem('time', schedule.time);
-		console.log(JSON.stringify(schedule));
-		console.log(schedule.time);
+
+		// Add new schedule to the array
+		
+
+		// Save updated array back to local storage
+		localStorage.setItem('schedule', JSON.stringify(schedule));
+		
+		getSchedule();
 	});
 
 	// TODO: Add a listener for click events on the save button. This code should
@@ -44,7 +53,11 @@ $(function () {
 	// TODO: Add code to get any user input that was saved in localStorage and set
 	// the values of the corresponding textarea elements. HINT: How can the id
 	// attrhhhhibute of each time-block be used to do this?
-	function getSchedule() {}
+	function getSchedule() {
+let savedSchedule = JSON.parse(localStorage.getItem('schedule'))
+console.log(savedSchedule)
+// if(){}
+	}
 	// TODO: Add code to display the current date in the header of the page.
 	function setTime() {
 		currentDayEl.text(rightNow);
