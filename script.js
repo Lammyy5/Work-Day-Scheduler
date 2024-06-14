@@ -4,6 +4,9 @@ var currentDayEl = $('#currentDay');
 var rightNow = dayjs().format('MMM DD, YYYY [at] hh:mm:ss a');
 let hour = dayjs().format('hh');
 let hourIds = [];
+let past = $('.past');
+let present = $('.present');
+let future = $('.future');
 $('.time-block').each(function() {
     hourIds.push(this.id.match(/(\d+)/).shift());
 });
@@ -49,7 +52,10 @@ $(function () {
 	// attribute of each time-block be used to conditionally add or remove the
 	// past, present, and future classes? How can Day.js be used to get the
 	// current hour in 24-hour time?
-
+function setColor(){
+	console.log(hour)
+	
+}
 	// TODO: Add code to get any user input that was saved in localStorage and set
 	// the values of the corresponding textarea elements. HINT: How can the id
 	// attrhhhhibute of each time-block be used to do this?
@@ -60,8 +66,10 @@ console.log(savedSchedule)
 	}
 	// TODO: Add code to display the current date in the header of the page.
 	function setTime() {
+		let rightNow = dayjs().format('MMM DD, YYYY [at] hh:mm:ss a');
 		currentDayEl.text(rightNow);
 	}
+	setColor()
 	setTime();
 	setInterval(setTime, 1000);
 });
